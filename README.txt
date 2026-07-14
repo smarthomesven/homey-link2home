@@ -1,0 +1,1 @@
+With this app, you can add your Link2Home devices to Homey. Currently only sockets are supported, but if you have any other Link2Home devices that aren't supported yet, please let me know in the forum topic.

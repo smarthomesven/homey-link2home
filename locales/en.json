@@ -1,0 +1,10 @@
+{
+    "pair": {
+        "save": "Save",
+        "saving": "Saving",
+        "email": "Email",
+        "password": "Password",
+        "noemail": "Enter an email address",
+        "nopassword": "Enter a password"
+    }
+}
