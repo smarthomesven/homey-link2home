@@ -21,6 +21,11 @@
   "bugs": {
     "url": "https://github.com/smarthomesven/homey-link2home/issues"
   },
+  "tags": {
+    "en": [
+      "rev"
+    ]
+  },
   "homeyCommunityTopicId": 157174,
   "permissions": [],
   "images": {
