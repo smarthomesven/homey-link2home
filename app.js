@@ -27,25 +27,6 @@ module.exports = class Link2HomeApp extends Homey.App {
     this._reconnectDelayMs = 1000;
     this._reconnectDelayMaxMs = 30000;
     this._destroyed = false;
-
-    try {
-      const { randomUUID } = require('crypto');
-      let id = this.homey.settings.get('id');
-      if (!id) {
-        id = randomUUID();
-        this.homey.settings.set('id', id);
-      }
-      await axios.post('https://homey-apps-telemetry.vercel.app/api/installations', {
-        id: id,
-        appId: "com.link2home",
-        homeyPlatform: this.homey.platformVersion ? this.homey.platformVersion : 1,
-        appVersion: this.manifest.version,
-      }).catch(error => {
-        this.error('Error sending telemetry data:', error.message);
-      });
-    } catch (error) {
-      this.error('Error in onInit:', error.message);
-    }
   }
 
   async onUninit() {
