@@ -24,17 +24,21 @@
       </div>
     </fieldset>
     <p id="failed" style="display: none;" class="error" data-i18n="pair.failed">Something went wrong, did you enter the correct username and password?</p>
+    <p id="invalid" style="display: none;" class="error" data-i18n="pair.invalid">Invalid credentials</p>
     <button id="save" class="homey-button-primary-full" data-i18n="pair.save">Save</button>
     <script type="text/javascript">
       const emailElement = document.getElementById('email');
       const passwordElement = document.getElementById('password');
       const errorElement = document.getElementById('failed');
+      const invalidElement = document.getElementById('invalid');
       const noEmailElement = document.getElementById('noemail');
       const noPasswordElement = document.getElementById('nopassword');
       const saveElement = document.getElementById('save');
         saveElement.addEventListener("click", function (e) {
           errorElement.style.display = 'none';
+          invalidElement.style.display = 'none';
           noEmailElement.style.display = 'none';
+          setSaving();
           noPasswordElement.style.display = 'none';
           if (!emailElement.value) {
             noEmailElement.style.display = 'block';
@@ -46,24 +50,33 @@
             setSave();
             return;
           }
-          setSaving();
           const email = emailElement.value;
           const password = passwordElement.value;
           Homey.emit("login", { email: email, password: password  }).then(function (result) {
-            if (result === false) {
-              errorElement.style.display = 'block';
-              setSave();
+            if (result.success === false) {
+              if (result.error === "INVALID") {
+                setSave();
+                invalidElement.style.display = 'block';
+                return;
+              } else {
+                errorElement.style.display = 'block';
+                setSave();
+              }
             }
           });
         });
         function setSave() {
           saveElement.className = 'homey-button-primary-full';
           saveElement.textContent = Homey.__('pair.save');
+          emailElement.disabled = false;
+          passwordElement.disabled = false;
         }
 
         function setSaving() {
           saveElement.className = 'homey-button-primary-full is-loading';
           saveElement.textContent = Homey.__('pair.saving');
+          emailElement.disabled = true;
+          passwordElement.disabled = true;
         }
     </script>
   </body>

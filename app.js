@@ -11,7 +11,6 @@ const {
   parseWorkServerAddress,
 } = require('./lib/relay');
 const { powerToggle, queryStatus, heartbeat } = require('./lib/protocol');
-const axios = require('axios');
 
 module.exports = class Link2HomeApp extends Homey.App {
   async onInit() {
@@ -200,8 +199,18 @@ module.exports = class Link2HomeApp extends Homey.App {
     }
   }
 
-  _handleDisconnect() {
+  async _handleDisconnect() {
     this.log('Work-server connection closed; reconnecting shortly');
+    const drivers = this.homey.drivers.getDrivers();
+    const devices = [];
+    for (const driver of drivers) {
+      for (const device of driver.getDevices()) {
+        devices.push(device);
+      }
+    }
+    for (const device of devices) {
+      await device.setUnavailable(this.homey.__('errors.disconnected'));
+    }
     this._workSocket = null;
     this._subscribedMacs.clear();
     this._stopHeartbeat();

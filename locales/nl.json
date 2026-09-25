@@ -1,0 +1,15 @@
+{
+    "pair": {
+        "save": "Opslaan",
+        "saving": "Opslaan",
+        "email": "Email",
+        "password": "Wachtwoord",
+        "noemail": "Voer een emailadres in",
+        "nopassword": "Voer een wachtwoord in",
+        "failed": "Er is iets misgegaan, heb je het juiste emailadres en wachtwoord ingevoerd?",
+        "invalid": "Ongeldige inloggegevens"
+    },
+    "errors": {
+        "disconnected": "Verbinding maken met Link2Home..."
+    }
+}

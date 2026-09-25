@@ -41,7 +41,10 @@ module.exports = class PlugDriver extends Homey.Driver {
         this.log('Login response:', response.data);
         const token = response.data?.data?.token;
         if (!token) {
-          return false;
+          if (response.data.code === 602) {
+            return { success: false, error: "INVALID" };
+          }
+          return { success: false, error: "ERROR" };
         }
         this.homey.settings.set('token', token);
         this.homey.app.setCredentials(email, passwordMd5);
@@ -49,7 +52,7 @@ module.exports = class PlugDriver extends Homey.Driver {
         return true;
       } catch (error) {
         this.error('Login error:', error);
-        return false;
+        return { success: false, error: "ERROR" };
       }
     });
 
@@ -110,7 +113,10 @@ module.exports = class PlugDriver extends Homey.Driver {
         this.log('Login response:', response.data);
         const token = response.data?.data?.token;
         if (!token) {
-          return false;
+          if (response.data.code === 602) {
+            return { success: false, error: "INVALID" };
+          }
+          return { success: false, error: "ERROR" };
         }
         this.homey.settings.set('token', token);
         this.homey.app.setCredentials(email, passwordMd5);
@@ -118,7 +124,7 @@ module.exports = class PlugDriver extends Homey.Driver {
         return true;
       } catch (error) {
         this.error('Login error:', error);
-        return false;
+        return { success: false, error: "ERROR" };
       }
     });
 

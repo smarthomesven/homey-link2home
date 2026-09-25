@@ -5,6 +5,11 @@
         "email": "Email",
         "password": "Password",
         "noemail": "Enter an email address",
-        "nopassword": "Enter a password"
+        "nopassword": "Enter a password",
+        "failed": "Something went wrong, did you enter the correct email address and password?",
+        "invalid": "Invalid credentials"
+    },
+    "errors": {
+        "disconnected": "Reconnecting to Link2Home..."
     }
 }
